@@ -1,5 +1,7 @@
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:meals_provider_app/app/shared/app_style.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/store_data_controller.dart';
@@ -25,42 +27,86 @@ class MyHomePage extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   )
                 : Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          final storeItemList =
-                              controller.recipesControllerList[index
-                              ];
+                    child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: controller.recipesControllerList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 3 / 4,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      final storeItemList =
+                          controller.recipesControllerList[index];
+                      return Card(
+                        elevation: 8,
+                        child: Container(
 
-                          return GestureDetector(
-                            onTap: () async{
-                              controller.openLaunchUrl('${storeItemList.sourceUrl}');
-                            },
-                            child: Card(
-                              child: ListTile(
-                                leading:ClipRRect(
-clipBehavior: Clip.antiAliasWithSaveLayer
-                                  ,
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: FastCachedImage(url:'${storeItemList.imageUrl}',),
-                                ) ,
-                                title: Text('${storeItemList.title}'),
-                                subtitle: Row(children: [
-                                  Expanded(child: Text('${storeItemList.publisher}')),
-                                  // Expanded(child: Text('${storeItemList.socialRank}')),
-                                ],),
-                                trailing: IconButton(onPressed: () {
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                  padding:
+                                  EdgeInsets.symmetric(vertical: 10)),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller
+                                        .openLaunchUrl('${storeItemList.sourceUrl}');
+                                  },
+                                  child: Center(
+                                    child: FastCachedImage(
+                                      url: '${storeItemList.imageUrl}',
+                                      fit: BoxFit.cover,
+                                      height: 400,
+                                      width: 400,
 
-                                  controller.openLaunchUrl('${storeItemList.publisherUrl}');
-
-                                }, icon: Icon(Icons.source_outlined)),
-                                // leading: Text('${storeItemList.title}'),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(),
-                        itemCount: controller.recipesControllerList.length)),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                '${storeItemList.title}',
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: GoogleFonts.cairo(
+                                    fontSize: 13, color: Colors.green),
+                              ),
+                              Text(
+                                '${storeItemList.publisher}',
+                                style: GoogleFonts.cairo(
+                                    fontSize: 10, color: Colors.grey),
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star_rate,
+                                    color: Colors.amberAccent,
+                                  ),
+                                  Text(
+                                      '${storeItemList.socialRank!.toInt()}%'),
+                                  Spacer(),
+                                  TextButton(
+                                    onPressed: () {
+                                      controller.openLaunchUrl('${storeItemList.publisherUrl}');
+                                    },
+                                    child:   Text('publisher',style: GoogleFonts.orbitron(fontSize: 10,color: Colors.greenAccent.shade200),),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ))
           ],
         ));
   }
 }
+
+

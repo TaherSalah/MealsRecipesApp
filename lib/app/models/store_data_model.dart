@@ -40,7 +40,7 @@ class Recipes {
       title: json['title'],
       sourceUrl: json['source_url'],
       recipeId: json['recipe_id'],
-      imageUrl: json['image_url'],
+      imageUrl: json['image_url']??'',
       socialRank: json['social_rank'],
       publisherUrl: json['publisher_url'],
     );
