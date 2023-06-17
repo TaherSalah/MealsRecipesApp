@@ -41,11 +41,15 @@ class MyHomePage extends StatelessWidget {
                       final storeItemList =
                           controller.recipesControllerList[index];
                       return Hero(
-                        tag:heroTag,
+                        tag: heroTag,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => RecipesDetails(recipes: storeItemList),));
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      RecipesDetails(recipes: storeItemList),
+                                ));
                           },
                           child: Card(
                             elevation: 8,
@@ -54,20 +58,15 @@ class MyHomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 10)),
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10)),
                                   Expanded(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.openLaunchUrl(
-                                            '${storeItemList.sourceUrl}');
-                                      },
-                                      child: Center(
-                                        child: FastCachedImage(
-                                          url: '${storeItemList.imageUrl}',
-                                          fit: BoxFit.cover,
-                                          height: 400,
-                                          width: 400,
-                                        ),
+                                    child: Center(
+                                      child: FastCachedImage(
+                                        url: '${storeItemList.imageUrl}',
+                                        fit: BoxFit.cover,
+                                        height: 400,
+                                        width: 400,
                                       ),
                                     ),
                                   ),
@@ -92,7 +91,8 @@ class MyHomePage extends StatelessWidget {
                                         Icons.star_rate,
                                         color: Colors.amberAccent,
                                       ),
-                                      Text('${storeItemList.socialRank!.toInt()}%')
+                                      Text(
+                                          '${storeItemList.socialRank!.toInt()}%')
                                     ],
                                   ),
                                 ],
