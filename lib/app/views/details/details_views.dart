@@ -26,6 +26,7 @@ class _RecipesDetailsState extends State<RecipesDetails> {
 
     return SafeArea(
       child: Scaffold(
+
         body: SingleChildScrollView(
           child: Hero(
             tag: heroTag,

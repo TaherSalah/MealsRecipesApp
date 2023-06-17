@@ -18,10 +18,12 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.black12,
           title: Text(controller.isLoading ? 'loading........' : 'Store App'),
+
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             controller.isLoading
                 ? const Center(
                     child: CircularProgressIndicator(),
